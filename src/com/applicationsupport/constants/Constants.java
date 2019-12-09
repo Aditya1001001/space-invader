@@ -9,6 +9,7 @@ public class Constants {
 	
 	public static final int BOARD_WIDTH =900;
 	public static final int BOARD_HEIGHT =750;
+	public static final int GAME_SPPED = 50;
 	
 	//images
 	public static final String UFO_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\ufo.png";
