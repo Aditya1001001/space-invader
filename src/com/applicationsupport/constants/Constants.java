@@ -9,7 +9,13 @@ public class Constants {
 	
 	public static final int BOARD_WIDTH =900;
 	public static final int BOARD_HEIGHT =750;
-	public static final int GAME_SPPED = 50;
+	
+	//speed of application
+	public static final int GAME_SPPED = 25;
+	
+	//spaceship variables
+	public static final int SPACESHIP_WIDTH = 34;
+	public static final int SPACESHIP_HEIGHT = 28;
 	
 	//images
 	public static final String UFO_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\ufo.png";
