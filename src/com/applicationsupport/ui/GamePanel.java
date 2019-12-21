@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ import com.applicationsupport.callbacks.GameEventListener;
 import com.applicationsupport.constants.Constants;
 import com.applicationsupport.images.Image;
 import com.applicationsupport.images.ImageFactory;
+import com.applicationsupport.model.Bomb;
 import com.applicationsupport.model.EnemyShip;
 import com.applicationsupport.model.Laser;
 import com.applicationsupport.model.SpaceShip;
@@ -29,6 +31,8 @@ public class GamePanel extends JPanel {
 	private Laser laser;
 	private int direction =-1;
 	private List<EnemyShip> enemyShips;
+	private List<Bomb> bombs;
+	private Random generator;
 	
 	
 	public GamePanel() {
@@ -50,7 +54,9 @@ public class GamePanel extends JPanel {
 		this.spaceShip= new SpaceShip();
 		this.laser = new Laser();
 		this.enemyShips = new ArrayList<>();
-		this.timer = new Timer(Constants.GAME_SPPED, new GameLoop(this));
+		this.bombs = new ArrayList<>();
+		this.generator = new Random();
+ 		this.timer = new Timer(Constants.GAME_SPPED, new GameLoop(this));
 		this.timer.start();
 		
 	}
@@ -67,8 +73,14 @@ public class GamePanel extends JPanel {
 	
 	public void update() {
 		this.spaceShip.move();
-		this.laser.move();
 		
+		if(!laser.isDead()) {
+			
+			this.laser.move();
+		}
+		
+		
+		//moving enemy ships
 		for(EnemyShip enemyShip: this.enemyShips) {
 			
 			//boundary conditions to change direction
@@ -85,6 +97,21 @@ public class GamePanel extends JPanel {
 			
 			if(enemyShip.isVisible()) {
 				enemyShip.move(direction);
+			}
+		}
+		
+		//dropping bombs
+		for(EnemyShip enemyShip: this.enemyShips) {
+			if(enemyShip.isVisible() && generator.nextDouble() < Constants.BOMB_PROBABILITY) {
+				Bomb bomb = new Bomb(enemyShip.getX(), enemyShip.getY());
+				this.bombs.add(bomb);
+			}
+		}
+		
+		//moving bombs
+		for(Bomb bomb: this.bombs){
+			if(!bomb.isDead()) {
+				bomb.move();
 			}
 		}
 	}
@@ -105,6 +132,15 @@ public class GamePanel extends JPanel {
 
 	}
 	}
+	private void drawBombs(Graphics g) {
+		for(Bomb bomb : this.bombs) {
+			if(!bomb.isDead()) {
+				g.drawImage(bomb.getImage(), bomb.getX(), bomb.getY(), this);	
+			}
+
+	}
+		
+	}
 	
 	@Override
 	protected void paintComponent(Graphics g){
@@ -118,6 +154,7 @@ public class GamePanel extends JPanel {
 			drawPlayer(g);
 			drawLaser(g);
 			drawEnemyships(g);
+			drawBombs(g);
 		} 
 		else {
 			if(timer.isRunning()) {
@@ -127,6 +164,7 @@ public class GamePanel extends JPanel {
 		Toolkit.getDefaultToolkit().sync();
 		
 	}
+
 	public void keyReleased(KeyEvent e) {
 		this.spaceShip.keyReleased( e);
 	}

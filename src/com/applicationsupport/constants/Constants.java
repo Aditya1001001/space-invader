@@ -27,8 +27,14 @@ public class Constants {
 	public static final int ENEMY_SHIP_INIT_Y = 100;
 	public static final int ENEMY_SHIPS_ROW = 4;
 	public static final int ENEMY_SHIPS_COLUMN = 8;
-	public static final int BORDER_PADDING = 50;
-	public static final int DOWN_SPEED = 30;
+	public static final int BORDER_PADDING = 30;
+	public static final int DOWN_SPEED = 20;
+	
+	//bomb
+	public static final int BOMB_HEIGHT = 6;
+	public static final double BOMB_PROBABILITY = .0001 ;
+	
+	
 	
 	//images
 	public static final String UFO_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\ufo.png";
@@ -36,6 +42,8 @@ public class Constants {
 	public static final String BOMB_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\bomb.png";
 	public static final String BACKGROUND_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\background.jpg";
 	public static final String SPACESHIP_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\spaceship.png";
+
+	
 	
 
 	
