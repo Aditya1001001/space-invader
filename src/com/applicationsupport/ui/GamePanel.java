@@ -75,7 +75,20 @@ public class GamePanel extends JPanel {
 		this.spaceShip.move();
 		
 		if(!laser.isDead()) {
-			
+			//collision between laser and enemy ships
+			int laserX = laser.getX();
+			int laserY = laser.getY();
+			for(EnemyShip enemyShip: this.enemyShips) {
+				if(!enemyShip.isVisible())
+					continue;
+				int enemyX = enemyShip.getX();
+				int enemyY = enemyShip.getY();
+				if(laserX >= enemyX && laserX <= (enemyX + Constants.ENEMY_SHIP_WIDTH) && laserY >= enemyY && laserY <= enemyY + Constants.ENEMY_SHIP_HEIGHT) {
+					enemyShip.setVisible(false);
+					laser.die();
+					}
+				
+			}
 			this.laser.move();
 		}
 		
