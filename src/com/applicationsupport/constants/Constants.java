@@ -43,6 +43,10 @@ public class Constants {
 	public static final String BACKGROUND_IMAGE_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\background.jpg";
 	public static final String SPACESHIP_URL = "D:\\Projects\\SpaceInvaders\\space-invaders\\images\\spaceship.png";
 
+	public static final String GAME_OVER = "GAME OVER!";
+	public static final String WIN = "YOU WIN!";
+
+
 	
 	
 

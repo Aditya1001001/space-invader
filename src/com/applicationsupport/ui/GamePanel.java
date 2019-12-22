@@ -1,5 +1,7 @@
 package com.applicationsupport.ui;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -20,6 +22,7 @@ import com.applicationsupport.model.Bomb;
 import com.applicationsupport.model.EnemyShip;
 import com.applicationsupport.model.Laser;
 import com.applicationsupport.model.SpaceShip;
+import com.sun.javafx.tk.FontMetrics;
 
 public class GamePanel extends JPanel {
 	
@@ -33,6 +36,8 @@ public class GamePanel extends JPanel {
 	private List<EnemyShip> enemyShips;
 	private List<Bomb> bombs;
 	private Random generator;
+	private String message;
+	private int deaths;
 	
 	
 	public GamePanel() {
@@ -72,6 +77,18 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void update() {
+		
+		//condition for game end
+		if(spaceShip.isDead()) {
+			inGame = false;
+			message = Constants.GAME_OVER;
+		}
+		
+		//condition for winning
+		if(deaths == this.enemyShips.size()) {
+			inGame = false;
+			message = Constants.WIN;
+		}
 		this.spaceShip.move();
 		
 		if(!laser.isDead()) {
@@ -86,6 +103,7 @@ public class GamePanel extends JPanel {
 				if(laserX >= enemyX && laserX <= (enemyX + Constants.ENEMY_SHIP_WIDTH) && laserY >= enemyY && laserY <= enemyY + Constants.ENEMY_SHIP_HEIGHT) {
 					enemyShip.setVisible(false);
 					laser.die();
+					this.deaths++;
 					}
 				
 			}
@@ -123,6 +141,21 @@ public class GamePanel extends JPanel {
 		
 		//moving bombs
 		for(Bomb bomb: this.bombs){
+			
+			int bombX = bomb.getX();
+			int bombY = bomb.getY();
+			int spaceshipX = spaceShip.getX();
+			int spaceshipY = spaceShip.getY();
+			
+			if(!bomb.isDead() && !spaceShip.isDead()) {
+				
+				//collision between bomb and player ship
+				if(bombX >= spaceshipX && bombX <= (spaceshipX + Constants.SPACESHIP_WIDTH) && bombY >= spaceshipY && bombY <= spaceshipY + Constants.SPACESHIP_HEIGHT) {
+					bomb.die();
+					spaceShip.die();
+				}
+			}
+			
 			if(!bomb.isDead()) {
 				bomb.move();
 			}
@@ -152,8 +185,20 @@ public class GamePanel extends JPanel {
 			}
 
 	}
-		
 	}
+	private void drawGameOver(Graphics g) {
+		
+		g.drawImage(backgroundImage.getImage(), 0, 0, this);
+		Font font = new Font("Helvetica", Font.BOLD, 50);
+		java.awt.FontMetrics fontmetrics = this.getFontMetrics(font);
+		g.setColor(Color.GRAY);
+		g.setFont(font);		
+		g.drawString(message, (Constants.BOARD_WIDTH - fontmetrics.stringWidth(message))/2, Constants.BOARD_HEIGHT / 2 - 100);
+
+	
+}
+	
+
 	
 	@Override
 	protected void paintComponent(Graphics g){
@@ -173,10 +218,14 @@ public class GamePanel extends JPanel {
 			if(timer.isRunning()) {
 				timer.stop();
 			}
+			drawGameOver(g);
 		}
 		Toolkit.getDefaultToolkit().sync();
 		
 	}
+
+		
+	
 
 	public void keyReleased(KeyEvent e) {
 		this.spaceShip.keyReleased( e);
