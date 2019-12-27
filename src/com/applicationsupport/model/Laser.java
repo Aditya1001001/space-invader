@@ -33,7 +33,7 @@ public class Laser extends Sprite {
 
 		this.y -= Constants.LASER_HORIZONTAL_SPEED;
 		
-		if(this.y<0) {
+		if(this.y<5) {
 			this.die();
 		}
 	}

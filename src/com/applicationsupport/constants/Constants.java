@@ -14,25 +14,25 @@ public class Constants {
 	public static final int GAME_SPPED = 25;
 	
 	//spaceship constants
-	public static final int SPACESHIP_WIDTH = 34;
-	public static final int SPACESHIP_HEIGHT = 28;
+	public static final int SPACESHIP_WIDTH = 30;
+	public static final int SPACESHIP_HEIGHT = 30;
 	
 	//laser speed
-	public static final int LASER_HORIZONTAL_SPEED = 6;
+	public static final int LASER_HORIZONTAL_SPEED = 5;
 	
 	//Enemy ship constants
 	public static final int ENEMY_SHIP_HEIGHT = 24;
-	public static final int ENEMY_SHIP_WIDTH = 32;
+	public static final int ENEMY_SHIP_WIDTH = 33;
 	public static final int ENEMY_SHIP_INIT_X = 250;
 	public static final int ENEMY_SHIP_INIT_Y = 100;
 	public static final int ENEMY_SHIPS_ROW = 4;
 	public static final int ENEMY_SHIPS_COLUMN = 8;
-	public static final int BORDER_PADDING = 30;
+	public static final int BORDER_PADDING = 34;
 	public static final int DOWN_SPEED = 20;
 	
 	//bomb
-	public static final int BOMB_HEIGHT = 6;
-	public static final double BOMB_PROBABILITY = .0001 ;
+	public static final int BOMB_HEIGHT = 8;
+	public static final double BOMB_PROBABILITY = .0005;
 	
 	
 	

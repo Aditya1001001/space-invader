@@ -31,11 +31,11 @@ public class SpaceShip extends Sprite{
 		
 		
 		//bound checking
-		if(x<Constants.SPACESHIP_WIDTH) {
-			x=Constants.SPACESHIP_WIDTH;
+		if(x<Constants.BORDER_PADDING) {
+			x=Constants.BORDER_PADDING;
 		}
-		if (x>Constants.BOARD_WIDTH-2*Constants.SPACESHIP_WIDTH)
-			x=Constants.BOARD_WIDTH-2*Constants.SPACESHIP_WIDTH;
+		if (x>Constants.BOARD_WIDTH-2*Constants.BORDER_PADDING)
+			x=Constants.BOARD_WIDTH-2*Constants.BORDER_PADDING;
 	}
 
 	public void keyReleased(KeyEvent e) {
