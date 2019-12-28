@@ -127,6 +127,11 @@ public class GamePanel extends JPanel {
 			}
 			
 			if(enemyShip.isVisible()) {
+				
+				//if the enemy ships reach the bottom, invasion successful so instant death
+				if(enemyShip.getY() > Constants.BOARD_HEIGHT - (100 + Constants.SPACESHIP_HEIGHT)) {
+					spaceShip.die();
+				}
 				enemyShip.move(direction);
 			}
 		}
