@@ -31,7 +31,7 @@ public class Laser extends Sprite {
 	public void move() {
 
 
-		this.y -= Constants.LASER_HORIZONTAL_SPEED;
+		this.y -= Constants.LASER_VERTICAL_SPEED;
 		
 		if(this.y<5) {
 			this.die();

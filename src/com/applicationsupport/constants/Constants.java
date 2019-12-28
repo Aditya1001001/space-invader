@@ -18,7 +18,7 @@ public class Constants {
 	public static final int SPACESHIP_HEIGHT = 30;
 	
 	//laser speed
-	public static final int LASER_HORIZONTAL_SPEED = 5;
+	public static final int LASER_VERTICAL_SPEED = 5;
 	
 	//Enemy ship constants
 	public static final int ENEMY_SHIP_HEIGHT = 24;

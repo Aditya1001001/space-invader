@@ -146,10 +146,21 @@ public class GamePanel extends JPanel {
 			int bombY = bomb.getY();
 			int spaceshipX = spaceShip.getX();
 			int spaceshipY = spaceShip.getY();
+			int laserX = laser.getX();
+			int laserY = laser.getY();
 			
+			// collision between laser and bombs
+			if(!bomb.isDead() && !laser.isDead()) {
+				// bigger than sprite hit box size to make bombs easier to hit
+				if(bombX + 3 >= laserX && bombX - 3 <= (laserX + 3) && bombY >= laserY && bombY <= laserY + 7) {
+					bomb.die();
+					laser.die();
+				}
+					
+			}
+			
+			//collision between bomb and player ship
 			if(!bomb.isDead() && !spaceShip.isDead()) {
-				
-				//collision between bomb and player ship
 				if(bombX >= spaceshipX && bombX <= (spaceshipX + Constants.SPACESHIP_WIDTH) && bombY >= spaceshipY && bombY <= spaceshipY + Constants.SPACESHIP_HEIGHT) {
 					bomb.die();
 					spaceShip.die();
