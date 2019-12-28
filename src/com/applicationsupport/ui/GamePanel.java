@@ -22,6 +22,7 @@ import com.applicationsupport.model.Bomb;
 import com.applicationsupport.model.EnemyShip;
 import com.applicationsupport.model.Laser;
 import com.applicationsupport.model.SpaceShip;
+import com.applicationsupport.sound.SoundFactory;
 import com.sun.javafx.tk.FontMetrics;
 
 public class GamePanel extends JPanel {
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel {
 	private Random generator;
 	private String message;
 	private int deaths;
+	private SoundFactory soundFactory;
 	
 	
 	public GamePanel() {
@@ -56,6 +58,7 @@ public class GamePanel extends JPanel {
 	}
 	private void initializeVariables() {
 		this.backgroundImage = ImageFactory.createImage(Image.BACKGROUND);
+		this.soundFactory = new SoundFactory();
 		this.spaceShip= new SpaceShip();
 		this.laser = new Laser();
 		this.enemyShips = new ArrayList<>();
@@ -101,6 +104,7 @@ public class GamePanel extends JPanel {
 				int enemyX = enemyShip.getX();
 				int enemyY = enemyShip.getY();
 				if(laserX >= enemyX && laserX <= (enemyX + Constants.ENEMY_SHIP_WIDTH) && laserY >= enemyY && laserY <= enemyY + Constants.ENEMY_SHIP_HEIGHT) {
+					soundFactory.explosion();
 					enemyShip.setVisible(false);
 					laser.die();
 					this.deaths++;
@@ -158,6 +162,7 @@ public class GamePanel extends JPanel {
 			if(!bomb.isDead() && !laser.isDead()) {
 				// bigger than sprite hit box size to make bombs easier to hit
 				if(bombX + 3 >= laserX && bombX - 3 <= (laserX + 3) && bombY >= laserY && bombY <= laserY + 7) {
+					soundFactory.explosion();
 					bomb.die();
 					laser.die();
 				}
@@ -167,6 +172,7 @@ public class GamePanel extends JPanel {
 			//collision between bomb and player ship
 			if(!bomb.isDead() && !spaceShip.isDead()) {
 				if(bombX >= spaceshipX && bombX <= (spaceshipX + Constants.SPACESHIP_WIDTH) && bombY >= spaceshipY && bombY <= spaceshipY + Constants.SPACESHIP_HEIGHT) {
+					soundFactory.explosion();
 					bomb.die();
 					spaceShip.die();
 				}
@@ -258,6 +264,7 @@ public class GamePanel extends JPanel {
 			int laserY = this.spaceShip.getY();
 			
 			if(inGame && laser.isDead()) {
+				soundFactory.laser();
 				laser =new Laser(laserX,laserY);
 			}
 		}
