@@ -40,6 +40,8 @@ public class GamePanel extends JPanel {
 	private String message;
 	private int deaths;
 	private SoundFactory soundFactory;
+	private int score;
+	private int lives = 2;
 	
 	
 	public GamePanel() {
@@ -66,6 +68,7 @@ public class GamePanel extends JPanel {
 		this.generator = new Random();
  		this.timer = new Timer(Constants.GAME_SPPED, new GameLoop(this));
 		this.timer.start();
+		this.score=0;
 		
 	}
 	public void initializeLayout() {
@@ -108,6 +111,7 @@ public class GamePanel extends JPanel {
 					enemyShip.setVisible(false);
 					laser.die();
 					this.deaths++;
+					score+=50;
 					}
 				
 			}
@@ -165,6 +169,7 @@ public class GamePanel extends JPanel {
 					soundFactory.explosion();
 					bomb.die();
 					laser.die();
+					score+=10;
 				}
 					
 			}
@@ -174,7 +179,9 @@ public class GamePanel extends JPanel {
 				if(bombX >= spaceshipX && bombX <= (spaceshipX + Constants.SPACESHIP_WIDTH) && bombY >= spaceshipY && bombY <= spaceshipY + Constants.SPACESHIP_HEIGHT) {
 					soundFactory.explosion();
 					bomb.die();
-					spaceShip.die();
+					lives--;
+					if(lives<0)
+						spaceShip.die();
 				}
 			}
 			
@@ -208,6 +215,20 @@ public class GamePanel extends JPanel {
 
 	}
 	}
+	private void drawScore(Graphics g) {
+		
+		if(!inGame)
+			return;
+		
+
+		Font font = new Font("Helvetica", Font.BOLD, 20);
+		g.setFont(font);
+		g.setColor(Color.GRAY);
+		g.drawString("Score: " + score, Constants.BOARD_WIDTH - 150, 50);
+		g.drawString("Lives: " + lives, 50, 50);
+			
+		}
+	
 	private void drawGameOver(Graphics g) {
 		
 		g.drawImage(backgroundImage.getImage(), 0, 0, this);
@@ -216,7 +237,10 @@ public class GamePanel extends JPanel {
 		g.setColor(Color.GRAY);
 		g.setFont(font);		
 		g.drawString(message, (Constants.BOARD_WIDTH - fontmetrics.stringWidth(message))/2, Constants.BOARD_HEIGHT / 2 - 100);
-
+		Font scoreFont = new Font("Helvetica", Font.BOLD, 20);
+		g.setFont(scoreFont);
+		g.setColor(Color.GRAY);
+		g.drawString("Score: " + score, (Constants.BOARD_WIDTH - fontmetrics.stringWidth("Scor"))/2, Constants.BOARD_HEIGHT / 2 - 40);
 	
 }
 	
@@ -235,6 +259,7 @@ public class GamePanel extends JPanel {
 			drawLaser(g);
 			drawEnemyships(g);
 			drawBombs(g);
+			drawScore(g);
 		} 
 		else {
 			if(timer.isRunning()) {

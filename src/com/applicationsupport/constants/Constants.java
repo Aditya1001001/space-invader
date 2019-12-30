@@ -28,11 +28,11 @@ public class Constants {
 	public static final int ENEMY_SHIPS_ROW = 4;
 	public static final int ENEMY_SHIPS_COLUMN = 8;
 	public static final int BORDER_PADDING = 34;
-	public static final int DOWN_SPEED = 20;
+	public static final int DOWN_SPEED = 25;
 	
 	//bomb
 	public static final int BOMB_HEIGHT = 8;
-	public static final double BOMB_PROBABILITY = .0005;
+	public static final double BOMB_PROBABILITY = .0004;
 	
 	
 	
